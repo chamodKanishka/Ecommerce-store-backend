@@ -1,7 +1,8 @@
-package com.bookstore.service;
+package com.bookstore.bookstore.service;
 
-import com.bookstore.domain.User;
-import com.bookstore.repository.UserRepository;
+
+import com.bookstore.bookstore.domain.User;
+import com.bookstore.bookstore.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,9 @@ public class UserSecurityService implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if(null == user){
             LOG.warn("Username {} not found", username);
-            throw new UsernameNotFoundException("Username " + username+ " Not found");
+            throw new UsernameNotFoundException("Username "+username+" not found");
 
         }
         return user;
     }
-
 }

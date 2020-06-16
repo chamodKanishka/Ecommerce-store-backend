@@ -1,5 +1,6 @@
-package com.bookstore.config;
-import com.bookstore.service.UserSecurityService;
+package com.bookstore.bookstore.config;
+
+import com.bookstore.bookstore.service.UserSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -11,11 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private Environment env;
-
 
     @Autowired
     private UserSecurityService userSecurityService;
@@ -24,28 +24,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return SecurityUtility.passwordEncoder();
     }
 
-    public static final String[] PUBLIC_MATCHES = {
+    private static final String[] PUBLIC_MATCHES = {
             "/css/**",
             "/js/**",
-            "/image/**",
+            "/images/**",
             "/book/**",
-            "/user/**"
+            "/user/**",
+
     };
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
                 .antMatchers(PUBLIC_MATCHES).permitAll().anyRequest().authenticated();
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
-
     }
-
-
-
 
 
 }

@@ -1,10 +1,11 @@
-package com.bookstore.domain.security;
+package com.bookstore.bookstore.domain.security;
 
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 
 public class Authority implements GrantedAuthority, Serializable {
+
     private static final long serialVersionUID = 123123L;
 
     private final String authority;
@@ -15,7 +16,7 @@ public class Authority implements GrantedAuthority, Serializable {
 
     @Override
     public String getAuthority(){
-        return  authority;
+        return authority;
     }
 
 }

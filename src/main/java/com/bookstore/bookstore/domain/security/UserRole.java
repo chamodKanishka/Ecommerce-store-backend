@@ -1,6 +1,7 @@
-package com.bookstore.domain.security;
+package com.bookstore.bookstore.domain.security;
 
-import com.bookstore.domain.User;
+import com.bookstore.bookstore.domain.User;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,18 +11,17 @@ public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 890345L;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userRoleId;
+    private long userRoleID;
 
-    public UserRole(){}
+    public UserRole () { }
 
-    public UserRole (User user, Role role){
-        this.user = user;
+    public UserRole(User user, Role role){
+        this.user =user;
         this.role = role;
-
     }
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -30,29 +30,27 @@ public class UserRole implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    public long getUserRoleId(){
-        return userRoleId;
+    public long getUserRoleID() {
+        return userRoleID;
     }
 
-    public void setUserRoleId(long userRoleId){
-        this.userRoleId = userRoleId;
+    public void setUserRoleID(long userRoleID) {
+        this.userRoleID = userRoleID;
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public Role getRole(){
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Role role){
+    public void setRole(Role role) {
         this.role = role;
     }
-
-
 }

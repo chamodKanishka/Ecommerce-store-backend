@@ -1,8 +1,8 @@
-package com.bookstore.domain;
+package com.bookstore.bookstore.domain;
 
 
-import com.bookstore.domain.security.Authority;
-import com.bookstore.domain.security.UserRole;
+import com.bookstore.bookstore.domain.security.Authority;
+import com.bookstore.bookstore.domain.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,13 +16,12 @@ import java.util.Set;
 @Entity
 public class User implements UserDetails, Serializable {
 
-    private static final long serialVersionUID = 9027833495L;
+    private static final long serialVersionUID = 902783495L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="Id", nullable = false, updatable = false)
     private Long id;
-
 
     private String username;
     private String password;
@@ -32,7 +31,7 @@ public class User implements UserDetails, Serializable {
     private String phone;
     private boolean enabled = true;
 
-    @OneToMany(mappedBy = "user", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
@@ -56,21 +55,20 @@ public class User implements UserDetails, Serializable {
         return true;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
     @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
-        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
-
-        return authorities;
+        userRoles.forEach(ur -> authorities.add((new Authority(ur.getRole().getName()))));
+        return null;
     }
 
     @Override
