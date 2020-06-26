@@ -25,7 +25,7 @@
 <body>
 <p>Dear <span th:text="${user.firstName}"></span>,</p>
 <br/>
-<p>Thank you for shopping from our book store. We hope you had a good time with our service!</p>
+<p>Thank you for shopping from our item store. We hope you had a good time with our service!</p>
 <p>Your order number is: <strong>#<span th:text="${order.id}"></span></strong>. Here is your order detail:</p>
 <h2>Order Detail for purchase #<span th:text="${order.id}"></span></h2>
 <hr/>
@@ -75,9 +75,9 @@
     </thead>
     <tbody>
     <tr th:each="cartItem : ${cartItemList}">
-        <td><span data-th-text="${cartItem.book.title}"></span>
+        <td><span data-th-text="${cartItem.item.title}"></span>
         </td>
-        <td data-th-text="${cartItem.book.ourPrice}"
+        <td data-th-text="${cartItem.item.ourPrice}"
             class="text-center">
         </td>
         <td data-th-text="${cartItem.qty}" class="text-center">
